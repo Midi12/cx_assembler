@@ -22,6 +22,11 @@ See `examples` folder.
 No extension set is currently being supported, only a subset of x86 instructions is currently being implemented.
 SIB (Scale Index Base) byte is not fully implemented yet
 
+## Build
+
+Clone the repository and build using CMake.
+Only tested with clang tool chain, O2 optimization is only necessary if you want to use the inline emitter `core::emit()`
+
 ## TODOs ?
 
 - Implement jcc and jmp instructions
