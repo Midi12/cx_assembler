@@ -30,6 +30,7 @@ Only tested with clang tool chain, O2 optimization is only necessary if you want
 ## TODOs ?
 
 - Implement jcc and jmp instructions
+- Continue implementing SIB encoding and related helper functions (ie: `dword_ptr(operand, disp)`)
 
 ## Credits
 
