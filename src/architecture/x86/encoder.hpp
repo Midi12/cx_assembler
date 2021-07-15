@@ -48,7 +48,9 @@ namespace cx_assembler::x86 {
 
             auto has_rex = []() constexpr {
                 if constexpr (Immediate<Op2> || IsVoidOperand<Op2>) {
-                    return Id != e_instruction_id::call && needs_rex<Op1>();
+                    return (Id != e_instruction_id::call &&
+                            Id != e_instruction_id::jmp
+                    ) && needs_rex<Op1>();
                 } else {
                     return needs_rex<Op1, Op2>();
                 }
@@ -223,6 +225,37 @@ namespace cx_assembler::x86 {
         return encode_call<Id>(desc, immediate<std::uint32_t>(op1));
     }
 
+    template <e_instruction_id Id, typename Op1> requires Immediate8<Op1>
+    consteval auto encode_jcc(instruction_desc desc, Op1 op1) {
+        auto opcode = desc.primary_opcode();
+
+        return internal::encode<Id, Op1, Void>(desc, opcode, op1.value());
+    }
+
+    template <e_instruction_id Id, typename Op1> requires (Immediate<Op1> || Register<Op1> || (Memory<Op1> && Register<typename Op1::value_type>))
+    consteval auto encode_jmp(instruction_desc desc, Op1 op1) {
+        auto id = desc.id();
+        auto opcode = desc.primary_opcode();
+
+        if constexpr (Immediate8<Op1>) {
+            opcode = static_cast<std::uint8_t>(0xeb);
+
+            return internal::encode<Id, Op1, Void>(
+                    desc, opcode, op1.value()
+            );
+        } else if constexpr (Register<Op1> || (Memory<Op1> && Register<typename Op1::value_type>)) {
+            opcode = static_cast<std::uint8_t>(0xff);
+
+            return internal::encode<Id, Op1, Void>(
+                    desc, opcode, encode_modrm(opcodeext_ff(id), op1)
+            );
+        } else if constexpr (Immediate<Op1>) {
+            return internal::encode<Id, Op1, Void>(
+                    desc, opcode, op1.value()
+            );
+        }
+    }
+
     template <int Len>
     consteval auto encode_nop() {
         if constexpr (Len == 1) {
@@ -349,6 +382,10 @@ namespace cx_assembler::x86 {
             return encode_pop<Id>(desc, op1);
         } else if constexpr (desc.encoding() == e_encoding::push) {
             return encode_push<Id>(desc, op1);
+        } else if constexpr (desc.encoding() == e_encoding::jcc) {
+            return encode_jcc<Id>(desc, op1);
+        } else if constexpr (desc.encoding() == e_encoding::jmp) {
+            return encode_jmp<Id>(desc, op1);
         } else {
             static_assert("Failed to encode instruction");
         }

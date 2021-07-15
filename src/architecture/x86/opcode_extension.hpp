@@ -22,6 +22,7 @@ namespace cx_assembler::x86 {
 
     enum class e_opcode_ff_extension {
         call = 0b010, // 2
+        jmp = 0b100,  // 4
     };
 
 #pragma clang diagnostic push
@@ -68,6 +69,8 @@ namespace cx_assembler::x86 {
         switch (id) {
             case e_instruction_id::call:
                 return e_opcode_ff_extension::call;
+            case e_instruction_id::jmp:
+                return e_opcode_ff_extension::jmp;
             default:
                 static_assert("invalid instruction id");
         }
