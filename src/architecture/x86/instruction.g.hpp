@@ -64,6 +64,26 @@ namespace cx_assembler::x86::instructions {
     }
 
     template <typename Address> requires Immediate8<Address>
+    consteval auto jnae(Address address) {
+        return encode<e_instruction_id::jb>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jnae(Address address) {
+        return jnae(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
+    consteval auto jc(Address address) {
+        return encode<e_instruction_id::jb>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jc(Address address) {
+        return jc(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
     consteval auto jbe(Address address) {
         return encode<e_instruction_id::jbe>(address);
     }
@@ -71,6 +91,16 @@ namespace cx_assembler::x86::instructions {
     template <typename Address> requires Integer<Address>
     consteval auto jbe(Address address) {
         return jbe(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
+    consteval auto jna(Address address) {
+        return encode<e_instruction_id::jbe>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jna(Address address) {
+        return jna(imm8(address));
     }
 
     template <typename Address> requires Immediate8<Address>
@@ -84,6 +114,16 @@ namespace cx_assembler::x86::instructions {
     }
 
     template <typename Address> requires Immediate8<Address>
+    consteval auto jnge(Address address) {
+        return encode<e_instruction_id::jl>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jnge(Address address) {
+        return jnge(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
     consteval auto jle(Address address) {
         return encode<e_instruction_id::jle>(address);
     }
@@ -91,6 +131,16 @@ namespace cx_assembler::x86::instructions {
     template <typename Address> requires Integer<Address>
     consteval auto jle(Address address) {
         return jle(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
+    consteval auto jng(Address address) {
+        return encode<e_instruction_id::jle>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jng(Address address) {
+        return jng(imm8(address));
     }
 
     template <typename Address> requires (Immediate<Address> || Register<Address> || (Memory<Address> && Register<typename Address::value_type>))
@@ -114,6 +164,26 @@ namespace cx_assembler::x86::instructions {
     }
 
     template <typename Address> requires Immediate8<Address>
+    consteval auto jae(Address address) {
+        return encode<e_instruction_id::jnb>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jae(Address address) {
+        return jae(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
+    consteval auto jnc(Address address) {
+        return encode<e_instruction_id::jnb>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jnc(Address address) {
+        return jnc(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
     consteval auto jnbe(Address address) {
         return encode<e_instruction_id::jnbe>(address);
     }
@@ -121,6 +191,16 @@ namespace cx_assembler::x86::instructions {
     template <typename Address> requires Integer<Address>
     consteval auto jnbe(Address address) {
         return jnbe(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
+    consteval auto ja(Address address) {
+        return encode<e_instruction_id::jnbe>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto ja(Address address) {
+        return ja(imm8(address));
     }
 
     template <typename Address> requires Immediate8<Address>
@@ -134,6 +214,16 @@ namespace cx_assembler::x86::instructions {
     }
 
     template <typename Address> requires Immediate8<Address>
+    consteval auto jge(Address address) {
+        return encode<e_instruction_id::jnl>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jge(Address address) {
+        return jge(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
     consteval auto jnle(Address address) {
         return encode<e_instruction_id::jnle>(address);
     }
@@ -141,6 +231,16 @@ namespace cx_assembler::x86::instructions {
     template <typename Address> requires Integer<Address>
     consteval auto jnle(Address address) {
         return jnle(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
+    consteval auto jg(Address address) {
+        return encode<e_instruction_id::jnle>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jg(Address address) {
+        return jg(imm8(address));
     }
 
     template <typename Address> requires Immediate8<Address>
@@ -164,6 +264,16 @@ namespace cx_assembler::x86::instructions {
     }
 
     template <typename Address> requires Immediate8<Address>
+    consteval auto jpo(Address address) {
+        return encode<e_instruction_id::jnp>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jpo(Address address) {
+        return jpo(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
     consteval auto jns(Address address) {
         return encode<e_instruction_id::jns>(address);
     }
@@ -181,6 +291,16 @@ namespace cx_assembler::x86::instructions {
     template <typename Address> requires Integer<Address>
     consteval auto jnz(Address address) {
         return jnz(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
+    consteval auto jne(Address address) {
+        return encode<e_instruction_id::jnz>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jne(Address address) {
+        return jne(imm8(address));
     }
 
     template <typename Address> requires Immediate8<Address>
@@ -204,6 +324,16 @@ namespace cx_assembler::x86::instructions {
     }
 
     template <typename Address> requires Immediate8<Address>
+    consteval auto jpe(Address address) {
+        return encode<e_instruction_id::jp>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto jpe(Address address) {
+        return jpe(imm8(address));
+    }
+
+    template <typename Address> requires Immediate8<Address>
     consteval auto js(Address address) {
         return encode<e_instruction_id::js>(address);
     }
@@ -223,6 +353,15 @@ namespace cx_assembler::x86::instructions {
         return jz(imm8(address));
     }
 
+    template <typename Address> requires Immediate8<Address>
+    consteval auto je(Address address) {
+        return encode<e_instruction_id::jz>(address);
+    }
+
+    template <typename Address> requires Integer<Address>
+    consteval auto je(Address address) {
+        return je(imm8(address));
+    }
 
     template <typename Op1, typename Op2>
     consteval auto mov(const Op1& op1, const Op2& op2) {
