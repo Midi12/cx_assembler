@@ -29,7 +29,6 @@ Only tested with clang tool chain, O2 optimization is only necessary if you want
 
 ## TODOs ?
 
-- Implement jcc and jmp instructions
 - Continue implementing Mod/RM encoding and related helper functions (ie: `dword_ptr(operand, disp)`)
 - Implement SIB 
 
@@ -40,3 +39,7 @@ Only tested with clang tool chain, O2 optimization is only necessary if you want
 - [Defuse.ca](https://defuse.ca/online-x86-assembler.htm#disassembly) for verifying outputs
 - [Geek ABC reference](http://ref.x86asm.net/geek-abc.html)
 - People who answered my questions about c++20
+
+## Changelog
+
+See [changelog](CHANGELOG.md)
